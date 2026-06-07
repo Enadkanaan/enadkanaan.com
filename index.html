@@ -691,77 +691,85 @@
       document.querySelectorAll('.stats-row [data-target]').forEach(animateCounter);
     }, 700);
   </script>
-  <script>
-    const contactModal = document.getElementById('contactModal');
-    const openContactModal = document.getElementById('openContactModal');
-    const closeContactModal = document.getElementById('closeContactModal');
-    const modalCloseTargets = document.querySelectorAll('[data-close-modal]');
-    const contactModalForm = document.getElementById('contactModalForm');
-    const contactSubmitBtn = document.getElementById('contactSubmitBtn');
-    const contactSuccessMessage = document.getElementById('contactSuccessMessage');
+<script>
+  const contactModal = document.getElementById('contactModal');
+  const openContactModal = document.getElementById('openContactModal');
+  const closeContactModal = document.getElementById('closeContactModal');
+  const modalCloseTargets = document.querySelectorAll('[data-close-modal]');
+  const contactModalForm = document.getElementById('contactModalForm');
+  const contactSubmitBtn = document.getElementById('contactSubmitBtn');
+  const contactSuccessMessage = document.getElementById('contactSuccessMessage');
 
-    function openEmailModal() {
-      contactModal.classList.add('open');
-      contactModal.setAttribute('aria-hidden', 'false');
-      document.body.classList.add('modal-open');
-      closeContactModal.focus();
-    }
+  function openEmailModal() {
+    contactModal.classList.add('open');
+    contactModal.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('modal-open');
+    closeContactModal.focus();
+  }
 
-    function closeEmailModal() {
-      contactModal.classList.remove('open');
-      contactModal.setAttribute('aria-hidden', 'true');
-      document.body.classList.remove('modal-open');
-      openContactModal.focus();
-    }
+  function closeEmailModal() {
+    contactModal.classList.remove('open');
+    contactModal.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('modal-open');
+    openContactModal.focus();
+  }
 
-    if (contactModal && openContactModal && closeContactModal) {
-      openContactModal.addEventListener('click', openEmailModal);
-      closeContactModal.addEventListener('click', closeEmailModal);
-      modalCloseTargets.forEach(target => target.addEventListener('click', closeEmailModal));
-      document.addEventListener('keydown', e => {
-        if (e.key === 'Escape' && contactModal.classList.contains('open')) closeEmailModal();
-      }
-      if (contactModalForm) {
-  contactModalForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
+  if (contactModal && openContactModal && closeContactModal) {
+    openContactModal.addEventListener('click', openEmailModal);
+    closeContactModal.addEventListener('click', closeEmailModal);
 
-    contactSubmitBtn.disabled = true;
-    contactSubmitBtn.textContent = 'Sending...';
-    contactSuccessMessage.style.display = 'none';
+    modalCloseTargets.forEach(target => {
+      target.addEventListener('click', closeEmailModal);
+    });
 
-    const formData = new FormData(contactModalForm);
-
-    try {
-      const response = await fetch(contactModalForm.action, {
-        method: 'POST',
-        body: formData,
-        headers: {
-          'Accept': 'application/json'
-        }
-      });
-
-      if (!response.ok) {
-        throw new Error('Form submission failed');
-      }
-
-      contactModalForm.reset();
-      contactSuccessMessage.style.display = 'block';
-      contactSubmitBtn.textContent = 'Submit';
-
-      setTimeout(() => {
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && contactModal.classList.contains('open')) {
         closeEmailModal();
-        contactSuccessMessage.style.display = 'none';
-        contactSubmitBtn.disabled = false;
-      }, 1800);
+      }
+    });
+  }
 
-    } catch (error) {
-      contactSubmitBtn.disabled = false;
-      contactSubmitBtn.textContent = 'Submit';
-      alert('Something went wrong. Please try again.');
-    }
-      });
-    }
-  </script>
+  if (contactModalForm) {
+    contactModalForm.addEventListener('submit', async e => {
+      e.preventDefault();
+
+      contactSubmitBtn.disabled = true;
+      contactSubmitBtn.textContent = 'Sending...';
+      contactSuccessMessage.style.display = 'none';
+
+      const formData = new FormData(contactModalForm);
+
+      try {
+        const response = await fetch(contactModalForm.action, {
+          method: 'POST',
+          body: formData,
+          headers: {
+            'Accept': 'application/json'
+          }
+        });
+
+        if (!response.ok) {
+          throw new Error('Form submission failed');
+        }
+
+        contactModalForm.reset();
+        contactSuccessMessage.style.display = 'block';
+        contactSubmitBtn.textContent = 'Submit';
+
+        setTimeout(() => {
+          closeEmailModal();
+          contactSuccessMessage.style.display = 'none';
+          contactSubmitBtn.disabled = false;
+        }, 1800);
+
+      } catch (error) {
+        contactSubmitBtn.disabled = false;
+        contactSubmitBtn.textContent = 'Submit';
+        alert('Something went wrong. Please try again.');
+      }
+    });
+  }
+</script>
     <script>
     const testimonialTrack = document.querySelector('.testimonial-track');
     const testimonialCards = document.querySelectorAll('.testimonial-track .testimonial-card');
