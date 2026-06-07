@@ -1104,3 +1104,19 @@ em { font-style: italic; color: var(--royal); }
   .cbtn { width: 100%; justify-content: center; }
   .footer-row { flex-direction: column; text-align: center; }
 }
+
+/* Testimonial Auto Slider */
+.testimonial-slider {
+  overflow: hidden;
+  position: relative;
+}
+
+.testimonial-track {
+  display: flex;
+  transition: transform 0.7s ease;
+}
+
+.testimonial-track .testimonial-card {
+  min-width: 100%;
+  flex: 0 0 100%;
+}
