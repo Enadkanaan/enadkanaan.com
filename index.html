@@ -672,5 +672,21 @@
       document.querySelectorAll('.stats-row [data-target]').forEach(animateCounter);
     }, 700);
   </script>
+    <script>
+    const testimonialTrack = document.querySelector('.testimonial-track');
+    const testimonialCards = document.querySelectorAll('.testimonial-track .testimonial-card');
+
+    let testimonialIndex = 0;
+
+    function moveTestimonials() {
+      testimonialIndex = (testimonialIndex + 1) % testimonialCards.length;
+      testimonialTrack.style.transform = `translateX(-${testimonialIndex * 100}%)`;
+    }
+
+    if (testimonialTrack && testimonialCards.length > 1) {
+      setInterval(moveTestimonials, 5000);
+    }
+  </script>
+
 </body>
 </html>
