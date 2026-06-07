@@ -950,8 +950,8 @@ em { font-style: italic; color: var(--royal); }
 }
 .contact-btns {
   display: flex;
-  gap: 10px;
-  justify-content: space-between;
+  gap: 18px;
+  justify-content: center;
   align-items: center;
   flex-wrap: wrap;
   max-width: 720px;
