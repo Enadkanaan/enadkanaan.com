@@ -696,6 +696,9 @@
     const openContactModal = document.getElementById('openContactModal');
     const closeContactModal = document.getElementById('closeContactModal');
     const modalCloseTargets = document.querySelectorAll('[data-close-modal]');
+    const contactModalForm = document.getElementById('contactModalForm');
+    const contactSubmitBtn = document.getElementById('contactSubmitBtn');
+    const contactSuccessMessage = document.getElementById('contactSuccessMessage');
 
     function openEmailModal() {
       contactModal.classList.add('open');
@@ -717,6 +720,45 @@
       modalCloseTargets.forEach(target => target.addEventListener('click', closeEmailModal));
       document.addEventListener('keydown', e => {
         if (e.key === 'Escape' && contactModal.classList.contains('open')) closeEmailModal();
+      }
+      if (contactModalForm) {
+  contactModalForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    contactSubmitBtn.disabled = true;
+    contactSubmitBtn.textContent = 'Sending...';
+    contactSuccessMessage.style.display = 'none';
+
+    const formData = new FormData(contactModalForm);
+
+    try {
+      const response = await fetch(contactModalForm.action, {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error('Form submission failed');
+      }
+
+      contactModalForm.reset();
+      contactSuccessMessage.style.display = 'block';
+      contactSubmitBtn.textContent = 'Submit';
+
+      setTimeout(() => {
+        closeEmailModal();
+        contactSuccessMessage.style.display = 'none';
+        contactSubmitBtn.disabled = false;
+      }, 1800);
+
+    } catch (error) {
+      contactSubmitBtn.disabled = false;
+      contactSubmitBtn.textContent = 'Submit';
+      alert('Something went wrong. Please try again.');
+    }
       });
     }
   </script>
