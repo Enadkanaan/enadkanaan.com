@@ -950,11 +950,11 @@ em { font-style: italic; color: var(--royal); }
 }
 .contact-btns {
   display: flex;
-  gap: 18px;
+  gap: 10px;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  max-width: 760px;
+  max-width: 480px;
   margin: 0 auto 36px;
 }
 .cbtn {
