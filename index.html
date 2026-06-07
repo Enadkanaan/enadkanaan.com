@@ -589,7 +589,7 @@
       <h3 id="contactModalTitle">Send an Inquiry</h3>
       <p>Fill in the details below and I will get back to you.</p>
 
-      <form action="https://formsubmit.co/enadk90@gmail.com" method="POST" class="contact-modal-form">
+     <form action="https://formsubmit.co/ajax/enadk90@gmail.com" method="POST" class="contact-modal-form" id="contactModalForm">
         <input type="hidden" name="_subject" value="New inquiry from enadkanaan.com">
         <input type="hidden" name="_captcha" value="false">
         <input type="hidden" name="_template" value="table">
@@ -602,7 +602,10 @@
         <input type="tel" name="phone" placeholder="Phone number" required>
         <textarea name="inquiry" placeholder="Inquiry" required></textarea>
 
-        <button type="submit" class="contact-modal-submit">Submit</button>
+        <button type="submit" class="contact-modal-submit" id="contactSubmitBtn">Submit</button>
+<p class="contact-modal-success" id="contactSuccessMessage">
+  Thank you for your message, I will get back to you as soon as possible
+</p>
       </form>
     </div>
   </div>
